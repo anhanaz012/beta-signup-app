@@ -12,10 +12,11 @@ import { CommonModule } from '@angular/common';
       (click)="onClick.emit()"
       [ngClass]="baseClasses"
     >
-      <span
-        *ngIf="loading"
-        class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"
-      ></span>
+      @if (loading) {
+        <span
+          class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"
+        ></span>
+      }
       {{ label }}
     </button>
   `,
@@ -31,7 +32,7 @@ export class ButtonComponent {
 
   get baseClasses(): string {
     const base =
-      ' py-3 flex rounded-full px-6 min-w-fit font-medium text-sm transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed';
+      ' py-3 flex rounded-full cursor-pointer px-6 min-w-fit font-medium text-sm transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed';
     const variants = {
       primary: 'bg-[#7355a1] text-white hover:bg-[#6e4f9a] active:scale-95',
       secondary: 'bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 active:scale-95',

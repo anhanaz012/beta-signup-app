@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -22,10 +22,9 @@ export class InviteFormComponent {
   isLoading = false;
   errorMessage = '';
 
-  constructor(
-    private inviteService: InviteService,
-    private router: Router,
-  ) {}
+  private inviteService = inject(InviteService);
+  private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   get codeError(): string {
     if (!this.codeControl.touched) return '';
@@ -46,18 +45,20 @@ export class InviteFormComponent {
 
     this.inviteService.verifyCode({ code: this.codeControl.value! }).subscribe({
       next: (res) => {
-        console.log(res);
-        this.isLoading = false;
+        console.log('next fired', res);
         if (res.is_valid) {
           sessionStorage.setItem('invite_verified', 'true');
           this.router.navigate(['/thank-you']);
         } else {
           this.errorMessage = res.message;
+          console.log('errorMessage set to:', this.errorMessage);
         }
-      },
-      error: (error) => {
-        console.log('error', error);
         this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.cdr.detectChanges();
         this.errorMessage = 'Something went wrong. Please try again.';
       },
     });

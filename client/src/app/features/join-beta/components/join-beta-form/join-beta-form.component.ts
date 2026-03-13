@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { WaitlistService } from '../../../../core/services/waitlist.service';
@@ -26,7 +26,8 @@ export class JoinBetaFormComponent {
   successMessage = '';
   errorMessage = '';
 
-  constructor(private waitlistService: WaitlistService) {}
+  private waitlistService = inject(WaitlistService);
+  private cdr = inject(ChangeDetectorRef);
 
   get nameError(): string {
     const control = this.form.get('name')!;
@@ -69,8 +70,10 @@ export class JoinBetaFormComponent {
           } else {
             this.errorMessage = res.message;
           }
+          this.cdr.detectChanges();
         },
         error: () => {
+          this.cdr.detectChanges();
           this.isLoading = false;
           this.errorMessage = 'Something went wrong. Please try again.';
         },
