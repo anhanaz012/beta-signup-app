@@ -92,13 +92,6 @@ source venv/Scripts/activate
 ```
 pip install -r requirements.txt
 ```
-
-If needed:
-
-```
-pip install email-validator
-```
-
 ---
 
 ## 4. Configure Environment Variables
