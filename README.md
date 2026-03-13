@@ -92,13 +92,6 @@ source venv/Scripts/activate
 ```
 pip install -r requirements.txt
 ```
-
-If needed:
-
-```
-pip install email-validator
-```
-
 ---
 
 ## 4. Configure Environment Variables
@@ -108,7 +101,7 @@ Create a `.env` file inside the **server** directory.
 Example:
 
 ```
-DATABASE_URL=postgresql://username:password@localhost:5432/beta_app
+DATABASE_URL="postgresql+psycopg2://<username>:<password>@<host>:<port>/<database_name>"
 ```
 
 ---
@@ -118,7 +111,7 @@ DATABASE_URL=postgresql://username:password@localhost:5432/beta_app
 Run:
 
 ```
-python app/scripts/create_tables.py
+python -m app.scripts.create_tables
 ```
 
 This will create:
@@ -135,7 +128,7 @@ The project includes a script that generates **50 secure random invite codes**.
 Run:
 
 ```
-python app/scripts/seed_codes.py
+python -m app.scripts.seed_codes
 ```
 
 The script will:
@@ -211,8 +204,8 @@ Request:
 
 ```
 {
-  "name": "John Doe",
-  "email": "john@example.com"
+  "name": "Ahmed Raza",
+  "email": "ahmedraza.com"
 }
 ```
 
