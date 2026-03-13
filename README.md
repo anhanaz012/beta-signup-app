@@ -387,12 +387,3 @@ Backend:
 Frontend:
 
 - Angular
-
----
-
-# Future Improvements
-
-- Rate limiting for invite verification
-- Email confirmation system
-- Admin dashboard for managing invite codes
-- API authentication
