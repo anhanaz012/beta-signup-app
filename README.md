@@ -67,7 +67,7 @@ server/
 ## 1. Clone the Repository
 
 ```
-git clone <repository-url>
+git clone https://github.com/anhanaz012/beta-signup-app
 cd beta-signup-web/server
 ```
 
