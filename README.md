@@ -25,30 +25,6 @@ A full-stack beta signup system. Users enter an invite code, and if valid, can j
 
 ---
 
-## Project Structure
-
-```
-beta-signup-app/
-├── client/                        # Angular frontend
-│   └── src/app/
-│       ├── core/                  # Services, guards
-│       ├── features/
-│       │   ├── invite-code/       # Invite form + Thank You page
-│       │   └── join-beta/         # Waitlist form
-│       └── shared/                # Reusable components, models
-│
-└── server/                        # FastAPI backend
-    └── app/
-        ├── api/                   # Route definitions
-        ├── models/                # Database tables
-        ├── schemas/               # Request/response shapes
-        ├── services/              # Business logic
-        ├── database/              # DB connection
-        └── scripts/               # Table creation, seeding
-```
-
----
-
 ## Frontend Pages
 
 | Route        | Page        | Description                            |
@@ -56,8 +32,6 @@ beta-signup-app/
 | `/invite`    | Invite Code | Enter an invite code to get access     |
 | `/thank-you` | Thank You   | Shown after a valid code is entered    |
 | `/join-beta` | Join Beta   | Submit name and email to join waitlist |
-
-The `/join-beta` route is protected — users who haven't verified a code are redirected to `/invite`.
 
 ---
 
