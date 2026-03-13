@@ -5,11 +5,19 @@ import { Router, RouterLink } from '@angular/router';
 import { InviteService } from '../../../../core/services/invite.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputFieldComponent } from '../../../../shared/components/input-field/input-field.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-invite-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, InputFieldComponent, RouterLink],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    InputFieldComponent,
+    RouterLink,
+    FontAwesomeModule,
+  ],
   templateUrl: './invite-form.component.html',
 })
 export class InviteFormComponent {
@@ -25,6 +33,7 @@ export class InviteFormComponent {
   private inviteService = inject(InviteService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
+  faWarning: any;
 
   get codeError(): string {
     if (!this.codeControl.touched) return '';
@@ -45,21 +54,34 @@ export class InviteFormComponent {
 
     this.inviteService.verifyCode({ code: this.codeControl.value! }).subscribe({
       next: (res) => {
-        console.log('next fired', res);
+        this.isLoading = false;
+
         if (res.is_valid) {
           sessionStorage.setItem('invite_verified', 'true');
           this.router.navigate(['/thank-you']);
         } else {
           this.errorMessage = res.message;
-          console.log('errorMessage set to:', this.errorMessage);
+
+          // Hide error message after 2 seconds
+          setTimeout(() => {
+            this.errorMessage = '';
+            this.cdr.detectChanges();
+          }, 2000);
         }
-        this.isLoading = false;
+
         this.cdr.detectChanges();
       },
       error: (err) => {
         this.isLoading = false;
-        this.cdr.detectChanges();
         this.errorMessage = 'Something went wrong. Please try again.';
+
+        // Hide error message after 2 seconds
+        setTimeout(() => {
+          this.errorMessage = '';
+          this.cdr.detectChanges();
+        }, 2000);
+
+        this.cdr.detectChanges();
       },
     });
   }

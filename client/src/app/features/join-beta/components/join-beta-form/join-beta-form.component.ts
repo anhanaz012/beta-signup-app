@@ -67,15 +67,34 @@ export class JoinBetaFormComponent {
           if (res.success) {
             this.successMessage = res.message;
             this.form.reset();
+            // Hide success message after 2 seconds
+            setTimeout(() => {
+              this.successMessage = '';
+              this.cdr.detectChanges();
+            }, 2000);
           } else {
             this.errorMessage = res.message;
+
+            // Hide error message after 2 seconds
+            setTimeout(() => {
+              this.errorMessage = '';
+              this.cdr.detectChanges();
+            }, 2000);
           }
+
           this.cdr.detectChanges();
         },
         error: () => {
-          this.cdr.detectChanges();
           this.isLoading = false;
           this.errorMessage = 'Something went wrong. Please try again.';
+
+          // Hide error message after 2 seconds
+          setTimeout(() => {
+            this.errorMessage = '';
+            this.cdr.detectChanges();
+          }, 2000);
+
+          this.cdr.detectChanges();
         },
       });
   }
