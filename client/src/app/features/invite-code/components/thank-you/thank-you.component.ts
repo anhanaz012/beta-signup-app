@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-thank-you',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, RouterLink],
   templateUrl: './thank-you.component.html',
 })
 export class ThankYouComponent {

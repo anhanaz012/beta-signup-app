@@ -1,19 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
+from app.api.dependencies import get_db
 from app.database.db import SessionLocal
 from app.schemas.beta_waitlist import BetaWaitlistInput, BetaWaitlistResponse
 from app.services.beta_waitlist import add_to_waitlist
 
 router = APIRouter(prefix="/beta", tags=["Beta Waitlist"])
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/join", response_model=BetaWaitlistResponse)

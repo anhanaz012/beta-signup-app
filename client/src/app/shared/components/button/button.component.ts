@@ -34,7 +34,7 @@ export class ButtonComponent {
     const base =
       ' py-3 flex rounded-full cursor-pointer px-6 min-w-fit font-medium text-sm transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed';
     const variants = {
-      primary: 'bg-[#7355a1] text-white hover:bg-[#6e4f9a] active:scale-95',
+      primary: 'bg-primary text-white hover:bg-[#6e4f9a] active:scale-95',
       secondary: 'bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 active:scale-95',
     };
     return `${base} ${variants[this.variant]}`;

@@ -8,6 +8,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:4200"],
@@ -15,4 +16,13 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+# Root endpoint
+
+
+@app.get("/")
+def root():
+    return {"message": "Beta Signup API is running, version 1.0.0. Visit /docs for API documentation."}
+
+
+# Include API routers
 app.include_router(api_router)

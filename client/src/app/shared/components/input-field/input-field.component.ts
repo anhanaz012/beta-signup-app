@@ -15,9 +15,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
   ],
   template: `
     <div class="flex flex-col gap-1">
-      <label *ngIf="label" class="text-sm text-left mt-2 font-medium text-gray-700">
-        {{ label }}
-      </label>
+      @if (label) {
+        <label class="text-sm text-left mt-2 font-medium text-gray-700">
+          {{ label }}
+        </label>
+      }
+
       <input
         [type]="type"
         [placeholder]="placeholder"
@@ -25,11 +28,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
         [value]="value"
         (input)="onInput($event)"
         (blur)="onTouched()"
-        class="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-sm text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 shadow-sm text-sm text-gray-900 placeholder-gray-400 bg-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       />
-      <span *ngIf="errorMessage" class="text-xs text-left text-red-500 mt-1">
-        {{ errorMessage }}
-      </span>
+      @if (errorMessage) {
+        <span class="text-xs text-left text-red-500 mt-1">
+          {{ errorMessage }}
+        </span>
+      }
     </div>
   `,
 })

@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
 @import 'tailwindcss';
 
@@ -9,9 +8,14 @@ body{
  font-family: "Plus Jakarta Sans", sans-serif;
  font-optical-sizing: auto;
 }
-.great-vibes {
-  font-family: "Great Vibes", cursive;
-}
 .niconne {
   font-family: "Niconne", cursive;
+}
+.page-bg {
+  background-image: url('./assets/images/page-bg.png');
+  background-size: cover;
+  background-position: center;
+}
+@theme {
+  --color-primary:#7355a1;
 }
