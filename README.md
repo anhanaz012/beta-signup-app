@@ -81,10 +81,8 @@ python -m venv venv
 
 Activate it:
 
-### Windows
-
 ```
-source venv/bin/activate
+source venv/Scripts/activate
 ```
 
 ---
