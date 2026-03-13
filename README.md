@@ -1,173 +1,146 @@
-# Beta Signup Web App
+# Beta Signup App
 
-A full-stack beta signup system built with **FastAPI (Python)**, **PostgreSQL**, and **Angular**.
-The application implements an **invite code verification system** and a **beta waitlist**.
-
-Users must first verify a valid invite code. After successful verification, they can submit their details to join the beta waitlist.
+A full-stack beta signup system. Users enter an invite code, and if valid, can join the beta waitlist.
 
 ---
 
-# Features
+## Tech Stack
 
-### Invite Code Verification
-
-- 50 predefined invite codes stored in PostgreSQL
-- API verifies if a code exists and is unused
-- Valid codes are marked as **used** after verification
-- Invalid or reused codes are rejected
-
-### Beta Waitlist
-
-- Users can submit **name and email**
-- Data is stored in the database with timestamp
-- Duplicate emails are prevented
-
-### Backend
-
-- Built using **FastAPI**
-- Uses **SQLAlchemy ORM**
-- PostgreSQL database
-- Modular architecture with services and API layers
+| Layer    | Technology             |
+| -------- | ---------------------- |
+| Frontend | Angular, Tailwind CSS  |
+| Backend  | Python, FastAPI        |
+| Database | PostgreSQL, SQLAlchemy |
 
 ---
 
-# Project Structure
+## How It Works
+
+1. User visits the app and enters an invite code
+2. Backend checks if the code is valid and unused
+3. If valid, the code is marked as used
+4. User is taken to a Thank You page and can join the waitlist
+5. User submits name and email to join the beta
+6. Data is saved to the database (duplicate emails are rejected)
+
+---
+
+## Project Structure
 
 ```
-server/
- ┣ app/
- ┃ ┣ api/
- ┃ ┃ ┣ v1/
- ┃ ┃ ┃ ┗ endpoints/
- ┃ ┃ ┃   ┣ invite.py
- ┃ ┃ ┃   ┗ beta.py
- ┃ ┃ ┗ router.py
- ┃ ┣ database/
- ┃ ┃ ┗ db.py
- ┃ ┣ models/
- ┃ ┃ ┣ invite_code.py
- ┃ ┃ ┗ beta_waitlist.py
- ┃ ┣ schemas/
- ┃ ┃ ┣ invite_code.py
- ┃ ┃ ┗ beta_waitlist.py
- ┃ ┣ services/
- ┃ ┃ ┣ invite_code.py
- ┃ ┃ ┗ beta_waitlist.py
- ┃ ┣ scripts/
- ┃ ┃ ┣ create_tables.py
- ┃ ┃ ┗ seed_codes.py
- ┃ ┗ main.py
- ┗ requirements.txt
+beta-signup-app/
+├── client/                        # Angular frontend
+│   └── src/app/
+│       ├── core/                  # Services, guards
+│       ├── features/
+│       │   ├── invite-code/       # Invite form + Thank You page
+│       │   └── join-beta/         # Waitlist form
+│       └── shared/                # Reusable components, models
+│
+└── server/                        # FastAPI backend
+    └── app/
+        ├── api/                   # Route definitions
+        ├── models/                # Database tables
+        ├── schemas/               # Request/response shapes
+        ├── services/              # Business logic
+        ├── database/              # DB connection
+        └── scripts/               # Table creation, seeding
 ```
 
 ---
 
-# Setup Instructions
+## Frontend Pages
 
-## 1. Clone the Repository
+| Route        | Page        | Description                            |
+| ------------ | ----------- | -------------------------------------- |
+| `/invite`    | Invite Code | Enter an invite code to get access     |
+| `/thank-you` | Thank You   | Shown after a valid code is entered    |
+| `/join-beta` | Join Beta   | Submit name and email to join waitlist |
 
-```
+The `/join-beta` route is protected — users who haven't verified a code are redirected to `/invite`.
+
+---
+
+## Backend Setup
+
+### 1. Clone the repository
+
+```bash
 git clone https://github.com/anhanaz012/beta-signup-app
-cd beta-signup-web/server
+cd beta-signup-app/server
 ```
 
----
+### 2. Create and activate virtual environment
 
-## 2. Create Virtual Environment
-
-```
+```bash
 python -m venv venv
-```
-
-Activate it:
-
-```
 source venv/Scripts/activate
 ```
 
----
+### 3. Install dependencies
 
-## 3. Install Dependencies
-
-```
+```bash
 pip install -r requirements.txt
 ```
----
 
-## 4. Configure Environment Variables
+### 4. Add environment variables
 
-Create a `.env` file inside the **server** directory.
-
-Example:
+Create a `.env` file in the `server/` directory:
 
 ```
 DATABASE_URL="postgresql+psycopg2://<username>:<password>@<host>:<port>/<database_name>"
 ```
 
----
+### 5. Create database tables
 
-## 5. Create Database Tables
-
-Run:
-
-```
+```bash
 python -m app.scripts.create_tables
 ```
 
-This will create:
+### 6. Seed invite codes
 
-- `invite_codes`
-- `beta_waitlist`
-
----
-
-# How to Seed Invite Codes
-
-The project includes a script that generates **50 secure random invite codes**.
-
-Run:
-
-```
+```bash
 python -m app.scripts.seed_codes
 ```
 
-The script will:
+This inserts 50 unique invite codes into the database.
 
-- Generate unique codes
-- Insert them into the `invite_codes` table
-- Avoid duplicates
+### 7. Start the backend
 
-Example output:
-
-```
-50 invite codes inserted successfully
-```
-
----
-
-# Running the Backend Server
-
-Start the FastAPI server:
-
-```
+```bash
 uvicorn app.main:app --reload
 ```
 
-Server will start at:
-
-```
-http://127.0.0.1:8000
-```
-
-API documentation:
-
-```
-http://127.0.0.1:8000/docs
-```
+Backend runs at `http://localhost:8000`
+API docs at `http://localhost:8000/docs`
 
 ---
 
-# API Endpoints
+## Frontend Setup
+
+### 1. Go to the client directory
+
+```bash
+cd beta-signup-app/client
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the app
+
+```bash
+ng serve
+```
+
+Frontend runs at `http://localhost:4200`
+
+---
+
+## API Endpoints
 
 ### Verify Invite Code
 
@@ -175,24 +148,13 @@ http://127.0.0.1:8000/docs
 POST /invite/verify
 ```
 
-Request:
+```json
+// Request
+{ "code": "YOUR_INVITE_CODE" }
 
+// Response
+{ "is_valid": true, "message": "Invite code verified successfully" }
 ```
-{
-  "code": "YOUR_INVITE_CODE"
-}
-```
-
-Response:
-
-```
-{
-  "is_valid": true,
-  "message": "Invite code verified successfully"
-}
-```
-
----
 
 ### Join Beta Waitlist
 
@@ -200,97 +162,17 @@ Response:
 POST /beta/join
 ```
 
-Request:
+```json
+// Request
+{ "name": "Ahmed Raza", "email": "ahmed@example.com" }
 
-```
-{
-  "name": "Ahmed Raza",
-  "email": "ahmedraza.com"
-}
-```
-
-Response:
-
-```
-{
-  "success": true,
-  "message": "Successfully added to beta waitlist"
-}
+// Response
+{ "success": true, "message": "Successfully added to beta waitlist" }
 ```
 
 ---
 
-# Architecture Explanation
-
-The backend follows a **layered architecture** to maintain separation of concerns.
-
-### API Layer
-
-Located in:
-
-```
-app/api/
-```
-
-Responsibilities:
-
-- Define HTTP endpoints
-- Handle request/response flow
-- Validate data using schemas
-
-Example:
-
-```
-POST /invite/verify
-POST /beta/join
-```
-
----
-
-### Schema Layer
-
-Located in:
-
-```
-app/schemas/
-```
-
-Uses **Pydantic models** to:
-
-- Validate request data
-- Structure API responses
-- Enforce constraints such as valid email and string length
-
----
-
-### Service Layer
-
-Located in:
-
-```
-app/services/
-```
-
-Handles **business logic**, including:
-
-- Verifying invite codes
-- Marking codes as used
-- Adding users to the beta waitlist
-- Preventing duplicate email entries
-
----
-
-### Model Layer
-
-Located in:
-
-```
-app/models/
-```
-
-Defines database tables using **SQLAlchemy ORM**.
-
-Tables:
+## Database Tables
 
 **invite_codes**
 
@@ -299,76 +181,14 @@ Tables:
 | id         | Primary key               |
 | code       | Unique invite code        |
 | is_used    | Whether the code was used |
-| created_at | Creation timestamp        |
+| created_at | When the code was created |
 | used_at    | When the code was used    |
 
 **beta_waitlist**
 
-| Column   | Description  |
-| -------- | ------------ |
-| id       | Primary key  |
-| name     | User name    |
-| email    | Unique email |
-| added_at | Timestamp    |
-
----
-
-### Database Layer
-
-Located in:
-
-```
-app/database/db.py
-```
-
-Responsible for:
-
-- Creating SQLAlchemy engine
-- Managing database sessions
-- Connecting to PostgreSQL
-
----
-
-# Development Workflow
-
-Typical request flow:
-
-```
-Client
-   ↓
-API Endpoint
-   ↓
-Pydantic Schema Validation
-   ↓
-Service Layer (Business Logic)
-   ↓
-SQLAlchemy Models
-   ↓
-PostgreSQL Database
-```
-
----
-
-# Demonstration Flow
-
-1. User enters invite code
-2. Backend verifies code from database
-3. If valid → code marked as used
-4. User submits name and email
-5. User is added to beta waitlist
-
----
-
-# Technologies Used
-
-Backend:
-
-- Python
-- FastAPI
-- SQLAlchemy
-- PostgreSQL
-- Pydantic
-
-Frontend:
-
-- Angular
+| Column   | Description      |
+| -------- | ---------------- |
+| id       | Primary key      |
+| name     | User's name      |
+| email    | Unique email     |
+| added_at | Signup timestamp |
