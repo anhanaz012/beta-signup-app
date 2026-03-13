@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angula
 import { WaitlistService } from '../../../../core/services/waitlist.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputFieldComponent } from '../../../../shared/components/input-field/input-field.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-join-beta-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, InputFieldComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, InputFieldComponent, RouterLink],
   templateUrl: './join-beta-form.component.html',
 })
 export class JoinBetaFormComponent {

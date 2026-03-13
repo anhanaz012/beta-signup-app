@@ -31,9 +31,9 @@ export class ButtonComponent {
 
   get baseClasses(): string {
     const base =
-      'w-full py-3 px-6 rounded-xl font-medium text-sm transition-all duration-200 shadow-sm flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed';
+      ' py-3 flex rounded-full px-6 min-w-fit font-medium text-sm transition-all duration-200 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed';
     const variants = {
-      primary: 'bg-gray-900 text-white hover:bg-gray-700 active:scale-95',
+      primary: 'bg-[#7355a1] text-white hover:bg-[#6e4f9a] active:scale-95',
       secondary: 'bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 active:scale-95',
     };
     return `${base} ${variants[this.variant]}`;

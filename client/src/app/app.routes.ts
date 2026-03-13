@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { inviteGuard } from './core/guards/invite.guard';
 
 export const routes: Routes = [
   {
@@ -23,7 +22,6 @@ export const routes: Routes = [
   },
   {
     path: 'join-beta',
-    canActivate: [inviteGuard],
     loadComponent: () =>
       import('./features/join-beta/components/join-beta-form/join-beta-form.component').then(
         (m) => m.JoinBetaFormComponent,

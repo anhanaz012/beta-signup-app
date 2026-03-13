@@ -1,53 +1,87 @@
-<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-  <div class="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-    <div class="mb-8 text-center">
-      <div class="inline-flex items-center justify-center w-12 h-12 bg-gray-900 rounded-xl mb-4">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-          />
-        </svg>
+<div
+  class="relative min-h-screen flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
+  style="
+    background-image: url('https://media2.dev.to/dynamic/image/width=1600,height=900,fit=cover,gravity=auto,format=auto/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/bp1dx1b0rv3p8zij896i.png');
+  "
+>
+  <!-- Main Content -->
+  <div class="relative z-10 w-full max-w-lg text-center">
+    <!-- Logo -->
+    <div class="flex justify-center mb-6">
+      <div class="w-16 h-16 rounded-full bg-[#7355a1] flex items-center justify-center shadow-lg">
+        <img src="https://framerusercontent.com/images/1cSAzSXl87VyotAiLwsIyNezE.svg" />
       </div>
-      <h1 class="text-2xl font-semibold text-gray-900">Join the Beta</h1>
-      <p class="text-sm text-gray-500 mt-1">Be among the first to experience our product</p>
     </div>
 
-    <div class="space-y-4">
-      <app-input-field
-        label="Full Name"
-        placeholder="John Doe"
-        [formControl]="$any(form.get('name'))"
-        [errorMessage]="nameError"
-      />
+    <!-- Hero Heading -->
+    <h1 class="text-[38px] text-gray-800 font-semibold leading-tight">
+      Join the
+      <span class="italic niconne text-[#7355a1] text-5xl">Waitlist</span>
+    </h1>
 
-      <app-input-field
-        label="Email Address"
-        type="email"
-        placeholder="john@example.com"
-        [formControl]="$any(form.get('email'))"
-        [errorMessage]="emailError"
-      />
+    <!-- Subtitle -->
+    <p class="text-gray-700 mt-4 max-w-md mx-auto">
+      Be among the first to experience the future of healthcare. Sign up to secure early access when
+      we launch.
+    </p>
 
-      <p
-        *ngIf="successMessage"
-        class="text-sm text-green-600 text-center bg-green-50 rounded-xl py-3 px-4"
-      >
-        {{ successMessage }}
+    <!-- Glass Card -->
+    <div
+      class="mt-10 backdrop-blur-xl bg-white/20 border border-white/30 rounded-2xl shadow-2xl p-8"
+    >
+      <h2 class="text-lg font-semibold text-black">Join our beta waitlist</h2>
+
+      <p class="text-sm text-gray-700 mb-6">
+        Enter your details below and we’ll notify you when access opens.
       </p>
 
-      <p *ngIf="errorMessage" class="text-sm text-red-500 text-center">
-        {{ errorMessage }}
-      </p>
+      <!-- Form -->
+      <div class="space-y-4">
+        <app-input-field
+          label="Full Name"
+          placeholder="John Doe"
+          [formControl]="$any(form.get('name'))"
+          [errorMessage]="nameError"
+        />
 
-      <app-button
-        label="Join Waitlist"
-        type="submit"
-        [loading]="isLoading"
-        (onClick)="onSubmit()"
-      />
+        <app-input-field
+          label="Email Address"
+          type="email"
+          placeholder="john@example.com"
+          [formControl]="$any(form.get('email'))"
+          [errorMessage]="emailError"
+        />
+
+        <!-- Success -->
+        <p
+          *ngIf="successMessage"
+          class="text-sm text-green-600 text-center bg-green-50 rounded-xl py-3 px-4"
+        >
+          {{ successMessage }}
+        </p>
+
+        <!-- Error -->
+        <p *ngIf="errorMessage" class="text-sm text-red-400 text-center">
+          {{ errorMessage }}
+        </p>
+        <div class="flex items-center mt-4 justify-center">
+          <app-button
+            label="Join Waitlist"
+            type="submit"
+            [loading]="isLoading"
+            (onClick)="onSubmit()"
+          />
+        </div>
+        <!-- Button -->
+      </div>
     </div>
+
+    <!-- Footer -->
+    <p class="text-sm mt-8">
+      Have an invite code?
+      <a routerLink="/invite" class="font-semibold text-purple-800 underline underline-offset-2">
+        Verify code
+      </a>
+    </p>
   </div>
 </div>
