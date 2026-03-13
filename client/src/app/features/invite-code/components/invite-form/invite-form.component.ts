@@ -5,19 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { InviteService } from '../../../../core/services/invite.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputFieldComponent } from '../../../../shared/components/input-field/input-field.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-invite-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ButtonComponent,
-    InputFieldComponent,
-    RouterLink,
-    FontAwesomeModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, InputFieldComponent, RouterLink],
   templateUrl: './invite-form.component.html',
 })
 export class InviteFormComponent {
